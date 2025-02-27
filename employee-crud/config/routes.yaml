@@ -1,0 +1,13 @@
+controllers:
+    resource:
+        path: ../src/Controller/
+        namespace: App\Controller
+    type: attribute
+employee_new:
+        path: /employee/new
+        controller: App\Controller\EmployeeController::new
+        methods: ['GET','POST']
+employee_display:
+        path: /employee/display
+        controller: App\Controller\EmployeeController::displayAction
+        methods: ['GET','POST']

@@ -1,0 +1,23 @@
+{# templates/employee/new.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Create Employee{% endblock %}
+
+{% block body %}
+<h1>Create a New Employee</h1>
+
+{{ form_start(form) }}
+    {{ form_row(form.firstName) }}
+    {{ form_row(form.lastName) }}
+    {{ form_row(form.age) }}
+    {{ form_row(form.hobby) }}
+    {{ form_row(form.gender) }}
+    {{ form_row(form.about_me) }}
+    {{ form_row(form.salary) }}
+    {{ form_row(form.roles) }}
+    {{ form_row(form.city) }}
+    <!-- {{ form_row(form.created_at) }}
+    {{ form_row(form.updated_at) }} -->
+    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}
+{% endblock %}

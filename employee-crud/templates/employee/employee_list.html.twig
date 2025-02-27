@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %} 
+{% block stylesheets %} 
+   <style> 
+      .table { border-collapse: collapse; } 
+      .table th, td { 
+         border-bottom: 1px solid #ddd; 
+         width: 250px; 
+         text-align: left; 
+         align: left; 
+      } 
+   </style> 
+{% endblock %}  
+
+{% block body %} 
+   <h2>Employee database application!</h2> 
+   <div> 
+      <a href = "{{ path('app_book_new') }}">Add</a> 
+   </div> 
+   <table class = "table">  
+      <tr>  
+         <th>Name</th>  
+         <th>last Name</th>  
+         <th>age</th> 
+         <th>hobby</th> 
+         <th>gender</th> 
+         <th>about_me</th> 
+         <th>salary</th> 
+         <th>roles</th> 
+         <th>city</th> 
+         <th>created at</th> 
+         <th>updated at</th>  
+      </tr>  
+      {% for emp in data %} 
+      <tr>  
+         <td>{{ emp.firstName }}</td>   
+         <td>{{ emp.lastName }}</td> 
+           <td>{{ emp.lastName }}</td> 
+           <td>{{ emp.hobby }}</td>
+           <td>{{ emp.gender }}</td>
+           <td>{{ emp.about_me }}</td>
+           <td>{{ emp.salary }}</td>
+           <td>{{ emp.roles }}</td>
+           <td>{{ emp.city }}</td>
+           <td>{{ emp.created_at }}</td>
+           <td>{{ emp.updated_at }}</td>   
+         <td><a href = "{{ path('app_emp_update', { 'id' : x.Id }) }}">Edit</a></td>
+         <td><a href = "{{ path('app_emp_delete', { 'id' : x.Id }) }}">Delete</a></td>
+      </tr>  
+      {% endfor %} 
+   </table>  
+{% endblock %} 
