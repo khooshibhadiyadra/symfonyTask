@@ -1,11 +1,12 @@
-{# templates/employee/new.html.twig #}
 {% extends 'base.html.twig' %}
-
 {% block title %}Create Employee{% endblock %}
-
 {% block body %}
+            <div class="card-header">
+                <a class="btn btn-outline-primary" href="{{ path('employee_list') }}"> 
+                    List of Employees
+                </a>
+            </div>
 <h1>Create a New Employee</h1>
-
 {{ form_start(form) }}
     {{ form_row(form.firstName) }}
     {{ form_row(form.lastName) }}
@@ -16,8 +17,11 @@
     {{ form_row(form.salary) }}
     {{ form_row(form.roles) }}
     {{ form_row(form.city) }}
-    <!-- {{ form_row(form.created_at) }}
-    {{ form_row(form.updated_at) }} -->
-    <button class="btn">{{ button_label|default('Save') }}</button>
+<button type="submit" class="btn btn-primary" onClick="myfun()">submit</button>
+<script>
+function myfun(){
+    alert(' data inserted');
+}
+</script>
 {{ form_end(form) }}
 {% endblock %}

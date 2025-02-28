@@ -16,7 +16,8 @@ return [
         '/_profiler/xdebug' => [[['_route' => '_profiler_xdebug', '_controller' => 'web_profiler.controller.profiler::xdebugAction'], null, null, null, false, false, null]],
         '/_profiler/open' => [[['_route' => '_profiler_open_file', '_controller' => 'web_profiler.controller.profiler::openAction'], null, null, null, false, false, null]],
         '/employee/new' => [[['_route' => 'employee_new', '_controller' => 'App\\Controller\\EmployeeController::new'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        '/employee/display' => [[['_route' => 'employee_display', '_controller' => 'App\\Controller\\EmployeeController::displayAction'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        '/employee/list' => [[['_route' => 'employee_list', '_controller' => 'App\\Controller\\EmployeeController::list'], null, ['GET' => 0], null, false, false, null]],
+        '/employee/filter' => [[['_route' => 'employee_filter_ajax', '_controller' => 'App\\Controller\\EmployeeController::filterAjax'], null, ['GET' => 0], null, false, false, null]],
     ],
     [ // $regexpList
         0 => '{^(?'
@@ -38,6 +39,10 @@ return [
                         .')'
                     .')'
                 .')'
+                .'|/employee/(?'
+                    .'|edit/([^/]++)(*:228)'
+                    .'|delete/([^/]++)(*:251)'
+                .')'
             .')/?$}sDu',
     ],
     [ // $dynamicRoutes
@@ -48,8 +53,10 @@ return [
         148 => [[['_route' => '_profiler_router', '_controller' => 'web_profiler.controller.router::panelAction'], ['token'], null, null, false, false, null]],
         168 => [[['_route' => '_profiler_exception', '_controller' => 'web_profiler.controller.exception_panel::body'], ['token'], null, null, false, false, null]],
         181 => [[['_route' => '_profiler_exception_css', '_controller' => 'web_profiler.controller.exception_panel::stylesheet'], ['token'], null, null, false, false, null]],
-        191 => [
-            [['_route' => '_profiler', '_controller' => 'web_profiler.controller.profiler::panelAction'], ['token'], null, null, false, true, null],
+        191 => [[['_route' => '_profiler', '_controller' => 'web_profiler.controller.profiler::panelAction'], ['token'], null, null, false, true, null]],
+        228 => [[['_route' => 'employee_edit', '_controller' => 'App\\Controller\\EmployeeController::edit'], ['id'], ['GET' => 0, 'PUT' => 1, 'POST' => 2], null, false, true, null]],
+        251 => [
+            [['_route' => 'employee_delete', '_controller' => 'App\\Controller\\EmployeeController::delete'], ['id'], ['GET' => 0, 'POST' => 1], null, false, true, null],
             [null, null, null, null, false, false, 0],
         ],
     ],

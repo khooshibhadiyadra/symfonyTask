@@ -372,6 +372,10 @@
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
+    <service id="App\Repository\SearchRepository" class="App\Repository\SearchRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
     <service id="argument_metadata_factory" class="Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadataFactory"/>
     <service id="argument_resolver.backed_enum_resolver" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\BackedEnumValueResolver">
       <tag priority="100" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\BackedEnumValueResolver">controller.argument_value_resolver</tag>
@@ -400,7 +404,7 @@
     </service>
     <service id="argument_resolver.service" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
       <tag priority="-50" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">controller.argument_value_resolver</tag>
-      <argument type="service" id=".service_locator.F6vdjrP"/>
+      <argument type="service" id=".service_locator.Vkpg2BM"/>
     </service>
     <service id="argument_resolver.default" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">
       <tag priority="-100" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">controller.argument_value_resolver</tag>
@@ -3374,7 +3378,7 @@
     </service>
     <service id="argument_resolver.not_tagged_controller" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
       <tag name="controller.argument_value_resolver" priority="-200"/>
-      <argument type="service" id=".service_locator.F6vdjrP"/>
+      <argument type="service" id=".service_locator.Vkpg2BM"/>
     </service>
     <service id="debug.log_processor" class="Symfony\Bridge\Monolog\Processor\DebugProcessor">
       <tag name="kernel.reset" method="reset"/>
@@ -5235,7 +5239,7 @@
     <service id="doctrine.orm.configuration" class="Doctrine\ORM\Configuration" abstract="true"/>
     <service id="doctrine.orm.entity_manager.abstract" class="Doctrine\ORM\EntityManager" lazy="true" abstract="true"/>
     <service id="doctrine.orm.container_repository_factory" class="Doctrine\Bundle\DoctrineBundle\Repository\ContainerRepositoryFactory">
-      <argument type="service" id=".service_locator.hlnd1II"/>
+      <argument type="service" id=".service_locator.cOCjKLU"/>
     </service>
     <service id="doctrine.orm.manager_configurator.abstract" class="Doctrine\Bundle\DoctrineBundle\ManagerConfigurator" abstract="true">
       <argument type="collection"/>
@@ -7271,6 +7275,8 @@
     <service id=".abstract.instanceof.App\Form\EmployeeType" class="App\Form\EmployeeType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\EmployeeRepository" class="App\Repository\EmployeeRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\EmployeeRepository" class="App\Repository\EmployeeRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\SearchRepository" class="App\Repository\SearchRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\SearchRepository" class="App\Repository\SearchRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".service_locator.pRu6x_4" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -7789,15 +7795,52 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.zHyJIs5" method="withContext"/>
     </service>
-    <service id=".service_locator.F6vdjrP" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.j7LfHbh" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="employee" type="service_closure" id=".errored..service_locator.j7LfHbh.App\Entity\Employee"/>
+        <argument key="em" type="service_closure" id="doctrine.orm.default_entity_manager"/>
+      </argument>
+    </service>
+    <service id=".service_locator.j7LfHbh.App\Controller\EmployeeController::edit()" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\EmployeeController::edit()"/>
+      <argument>App\Controller\EmployeeController::edit()</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.j7LfHbh" method="withContext"/>
+    </service>
+    <service id=".service_locator.j7LfHbh.App\Controller\EmployeeController::delete()" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\EmployeeController::delete()"/>
+      <argument>App\Controller\EmployeeController::delete()</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.j7LfHbh" method="withContext"/>
+    </service>
+    <service id=".service_locator.Kq27LHM" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="em" type="service_closure" id="doctrine.orm.default_entity_manager"/>
+      </argument>
+    </service>
+    <service id=".service_locator.Kq27LHM.App\Controller\EmployeeController::filterAjax()" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\EmployeeController::filterAjax()"/>
+      <argument>App\Controller\EmployeeController::filterAjax()</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.Kq27LHM" method="withContext"/>
+    </service>
+    <service id=".service_locator.Vkpg2BM" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="kernel::registerContainerConfiguration" type="service_closure" id=".service_locator.zHyJIs5.kernel::registerContainerConfiguration()"/>
         <argument key="App\Kernel::registerContainerConfiguration" type="service_closure" id=".service_locator.zHyJIs5.kernel::registerContainerConfiguration()"/>
         <argument key="kernel::loadRoutes" type="service_closure" id=".service_locator.zHyJIs5.kernel::loadRoutes()"/>
         <argument key="App\Kernel::loadRoutes" type="service_closure" id=".service_locator.zHyJIs5.kernel::loadRoutes()"/>
+        <argument key="App\Controller\EmployeeController::edit" type="service_closure" id=".service_locator.j7LfHbh.App\Controller\EmployeeController::edit()"/>
+        <argument key="App\Controller\EmployeeController::delete" type="service_closure" id=".service_locator.j7LfHbh.App\Controller\EmployeeController::delete()"/>
+        <argument key="App\Controller\EmployeeController::filterAjax" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\EmployeeController::filterAjax()"/>
         <argument key="kernel:registerContainerConfiguration" type="service_closure" id=".service_locator.zHyJIs5.kernel::registerContainerConfiguration()"/>
         <argument key="kernel:loadRoutes" type="service_closure" id=".service_locator.zHyJIs5.kernel::loadRoutes()"/>
+        <argument key="App\Controller\EmployeeController:edit" type="service_closure" id=".service_locator.j7LfHbh.App\Controller\EmployeeController::edit()"/>
+        <argument key="App\Controller\EmployeeController:delete" type="service_closure" id=".service_locator.j7LfHbh.App\Controller\EmployeeController::delete()"/>
+        <argument key="App\Controller\EmployeeController:filterAjax" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\EmployeeController::filterAjax()"/>
       </argument>
     </service>
     <service id=".service_locator.ea.H0ae" class="Symfony\Component\DependencyInjection\ServiceLocator">
@@ -8113,10 +8156,11 @@
         <argument key="turbo.doctrine.event_listener" type="service_closure" id="turbo.doctrine.event_listener"/>
       </argument>
     </service>
-    <service id=".service_locator.hlnd1II" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.cOCjKLU" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Repository\EmployeeRepository" type="service_closure" id="App\Repository\EmployeeRepository"/>
+        <argument key="App\Repository\SearchRepository" type="service_closure" id="App\Repository\SearchRepository"/>
       </argument>
     </service>
     <service id=".service_locator.BxSdgVt" class="Symfony\Component\DependencyInjection\ServiceLocator">
@@ -8783,6 +8827,9 @@
     </service>
     <service id=".errored..service_locator.zHyJIs5.Symfony\Component\Config\Loader\LoaderInterface" class="Symfony\Component\Config\Loader\LoaderInterface">
       <tag name="container.error" message="Cannot autowire service &quot;.service_locator.zHyJIs5&quot;: it needs an instance of &quot;Symfony\Component\Config\Loader\LoaderInterface&quot; but this type has been excluded from autowiring."/>
+    </service>
+    <service id=".errored..service_locator.j7LfHbh.App\Entity\Employee" class="App\Entity\Employee">
+      <tag name="container.error" message="Cannot autowire service &quot;.service_locator.j7LfHbh&quot;: it needs an instance of &quot;App\Entity\Employee&quot; but this type has been excluded in &quot;config/services.yaml&quot;."/>
     </service>
     <service id=".console.command.about.lazy" class="Symfony\Component\Console\Command\LazyCommand">
       <argument>about</argument>
@@ -9957,7 +10004,7 @@
     <service id="Psr\Log\LoggerInterface" alias="monolog.logger"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.pRu6x_4" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.F6vdjrP"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.Vkpg2BM"/>
     <service id="doctrine.id_generator_locator" alias=".service_locator.BxSdgVt"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="Psr\Log\LoggerInterface $requestLogger" alias="monolog.logger.request"/>
@@ -10001,6 +10048,8 @@
     <service id="messenger.bus.default" alias="debug.traced.messenger.bus.default"/>
     <service id="doctrine.orm.default_metadata_driver" alias=".doctrine.orm.default_metadata_driver"/>
     <service id=".service_locator.n_ENPtW" alias=".service_locator.zHyJIs5"/>
+    <service id=".service_locator.4KflF8U" alias=".service_locator.j7LfHbh"/>
+    <service id=".service_locator.HQZddX8" alias=".service_locator.Kq27LHM"/>
     <service id=".service_locator.9nvaCmp" alias=".service_locator.ZyP9f7K"/>
   </services>
 </container>

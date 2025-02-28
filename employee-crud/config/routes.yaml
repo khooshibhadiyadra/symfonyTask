@@ -7,7 +7,24 @@ employee_new:
         path: /employee/new
         controller: App\Controller\EmployeeController::new
         methods: ['GET','POST']
-employee_display:
-        path: /employee/display
-        controller: App\Controller\EmployeeController::displayAction
+employee_list:
+        path: /employee/list
+        controller: App\Controller\EmployeeController::list
+        methods: ['GET']
+employee_edit:
+        path: /employee/edit/{id}
+        controller: App\Controller\EmployeeController::edit
+        methods: ['GET','PUT','POST']
+employee_delete:
+        path: /employee/delete/{id}
+        controller: App\Controller\EmployeeController::delete
         methods: ['GET','POST']
+employee_filter_ajax:
+        path: /employee/filter
+        controller: App\Controller\EmployeeController::filterAjax
+        methods: ['GET']
+
+
+
+
+

@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+{% block title %}Edit Project{% endblock %}
+{% block body %}
+ {{ form_start(form) }}
+ {{ form_row(form.firstName) }}
+    {{ form_row(form.lastName) }}
+    {{ form_row(form.age) }}
+    {{ form_row(form.hobby) }}
+    {{ form_row(form.gender) }}
+    {{ form_row(form.about_me) }}
+    {{ form_row(form.salary) }}
+    {{ form_row(form.roles) }}
+    {{ form_row(form.city) }}
+   
+   <button type="submit" class="btn btn-primary" onClick="myfun()">update</button>
+   <script>
+function myfun(){
+    alert(' data updated');
+}
+</script>
+{{ form_end(form) }}
+{% endblock %}

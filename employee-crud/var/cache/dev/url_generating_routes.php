@@ -19,5 +19,8 @@ return [
     '_profiler_exception' => [['token'], ['_controller' => 'web_profiler.controller.exception_panel::body'], [], [['text', '/exception'], ['variable', '/', '[^/]++', 'token', true], ['text', '/_profiler']], [], [], []],
     '_profiler_exception_css' => [['token'], ['_controller' => 'web_profiler.controller.exception_panel::stylesheet'], [], [['text', '/exception.css'], ['variable', '/', '[^/]++', 'token', true], ['text', '/_profiler']], [], [], []],
     'employee_new' => [[], ['_controller' => 'App\\Controller\\EmployeeController::new'], [], [['text', '/employee/new']], [], [], []],
-    'employee_display' => [[], ['_controller' => 'App\\Controller\\EmployeeController::displayAction'], [], [['text', '/employee/display']], [], [], []],
+    'employee_list' => [[], ['_controller' => 'App\\Controller\\EmployeeController::list'], [], [['text', '/employee/list']], [], [], []],
+    'employee_edit' => [['id'], ['_controller' => 'App\\Controller\\EmployeeController::edit'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/employee/edit']], [], [], []],
+    'employee_delete' => [['id'], ['_controller' => 'App\\Controller\\EmployeeController::delete'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/employee/delete']], [], [], []],
+    'employee_filter_ajax' => [[], ['_controller' => 'App\\Controller\\EmployeeController::filterAjax'], [], [['text', '/employee/filter']], [], [], []],
 ];

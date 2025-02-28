@@ -47,6 +47,9 @@ class Employee
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $updatedAt = null;
 
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $search = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -189,6 +192,18 @@ class Employee
     public function setUpdatedAt(\DateTimeInterface $updatedAt): static
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getSearch(): ?string
+    {
+        return $this->search;
+    }
+
+    public function setSearch(?string $search): static
+    {
+        $this->search = $search;
 
         return $this;
     }

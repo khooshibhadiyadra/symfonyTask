@@ -52,29 +52,33 @@ class __TwigTemplate_7a8b45601a804727fc196eb783abc45e extends Template
         // line 1
         yield "<!DOCTYPE html>
 <html>
-    <head>
+ <head>
         <meta charset=\"UTF-8\">
         <title>";
         // line 5
         yield from $this->unwrap()->yieldBlock('title', $context, $blocks);
         yield "</title>
+        <link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC\" crossorigin=\"anonymous\">
         <link rel=\"icon\" href=\"data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>\">
+        <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js\"></script>
         ";
-        // line 7
-        yield from $this->unwrap()->yieldBlock('stylesheets', $context, $blocks);
         // line 9
+        yield from $this->unwrap()->yieldBlock('stylesheets', $context, $blocks);
+        // line 11
         yield "
         ";
-        // line 10
+        // line 12
         yield from $this->unwrap()->yieldBlock('javascripts', $context, $blocks);
-        // line 13
+        // line 15
         yield "    </head>
     <body>
-        ";
-        // line 15
+            ";
+        // line 17
         yield from $this->unwrap()->yieldBlock('body', $context, $blocks);
-        // line 16
-        yield "    </body>
+        // line 18
+        yield "
+  </div>
+ </body>
 </html>
 ";
         
@@ -109,7 +113,7 @@ class __TwigTemplate_7a8b45601a804727fc196eb783abc45e extends Template
         yield from [];
     }
 
-    // line 7
+    // line 9
     /**
      * @return iterable<null|scalar|\Stringable>
      */
@@ -122,7 +126,7 @@ class __TwigTemplate_7a8b45601a804727fc196eb783abc45e extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "stylesheets"));
 
-        // line 8
+        // line 10
         yield "        ";
         
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
@@ -133,7 +137,7 @@ class __TwigTemplate_7a8b45601a804727fc196eb783abc45e extends Template
         yield from [];
     }
 
-    // line 10
+    // line 12
     /**
      * @return iterable<null|scalar|\Stringable>
      */
@@ -146,10 +150,10 @@ class __TwigTemplate_7a8b45601a804727fc196eb783abc45e extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "javascripts"));
 
-        // line 11
+        // line 13
         yield "            ";
         yield from $this->unwrap()->yieldBlock('importmap', $context, $blocks);
-        // line 12
+        // line 14
         yield "        ";
         
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
@@ -160,7 +164,7 @@ class __TwigTemplate_7a8b45601a804727fc196eb783abc45e extends Template
         yield from [];
     }
 
-    // line 11
+    // line 13
     /**
      * @return iterable<null|scalar|\Stringable>
      */
@@ -183,7 +187,7 @@ class __TwigTemplate_7a8b45601a804727fc196eb783abc45e extends Template
         yield from [];
     }
 
-    // line 15
+    // line 17
     /**
      * @return iterable<null|scalar|\Stringable>
      */
@@ -218,17 +222,19 @@ class __TwigTemplate_7a8b45601a804727fc196eb783abc45e extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  187 => 15,  164 => 11,  153 => 12,  150 => 11,  137 => 10,  126 => 8,  113 => 7,  90 => 5,  77 => 16,  75 => 15,  71 => 13,  69 => 10,  66 => 9,  64 => 7,  59 => 5,  53 => 1,);
+        return array (  191 => 17,  168 => 13,  157 => 14,  154 => 13,  141 => 12,  130 => 10,  117 => 9,  94 => 5,  79 => 18,  77 => 17,  73 => 15,  71 => 12,  68 => 11,  66 => 9,  59 => 5,  53 => 1,);
     }
 
     public function getSourceContext(): Source
     {
         return new Source("<!DOCTYPE html>
 <html>
-    <head>
+ <head>
         <meta charset=\"UTF-8\">
         <title>{% block title %}Welcome!{% endblock %}</title>
+        <link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC\" crossorigin=\"anonymous\">
         <link rel=\"icon\" href=\"data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>\">
+        <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js\"></script>
         {% block stylesheets %}
         {% endblock %}
 
@@ -237,8 +243,10 @@ class __TwigTemplate_7a8b45601a804727fc196eb783abc45e extends Template
         {% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
-    </body>
+            {% block body %}{% endblock %}
+
+  </div>
+ </body>
 </html>
 ", "base.html.twig", "/home/pcg/employee-crud/templates/base.html.twig");
     }

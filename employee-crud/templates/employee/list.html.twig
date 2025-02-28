@@ -1,0 +1,45 @@
+{% block body %}
+    <div class="container">
+        <h2 class="text-center mt-5 mb-3">Employee List</h2>
+        <div class="card">
+            <div class="card-header">
+                <a class="btn btn-outline-primary" href="{{ path('employee_new') }}"> 
+                    Create New Employee 
+                </a>
+            </div>
+            <div class="card-body">
+<form id="salary-filter-form" method="get" action="{{ path('employee_filter_ajax') }}">
+    <label for="salary">Filter by Salary:</label>
+    <input type="text" name="salaryInput" id="salaryInput" class="salaryInput">
+        <select name="salaryOperator" id="salaryOperator">
+        <option value="">Select Salary</option>
+            <option value="="> == </option>
+            <option value=">="> >= </option>
+            <option value= "<="> <= </option>
+            <option value=">"> > </option>
+            <option value="<"> < </option>
+        </select>
+
+</form>
+
+<div id="employee-list">
+    {% include 'employee/_employee_list.html.twig' with {'employees': employees} %}
+</div>
+
+<script>
+document.getElementById('salaryOperator').addEventListener('change', function() {
+var salaryOperator = this.value;
+var get= document.getElementById('salaryInput').value;
+var url = '{{ path('employee_filter_ajax') }}' + (salaryOperator ? '?salaryOperator' + salaryOperator : '')+ (salaryInput ?+  get : '');
+    .then(response => response.text())
+    .then(data => {
+    document.getElementById('employee-list').innerHTML = data;
+      })
+      .catch(error => console.error('Error fetching filtered employees:', error));
+    });
+</script>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
