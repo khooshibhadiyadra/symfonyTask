@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManagerInterface;
-
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
  * @Route("/employee")
@@ -33,10 +33,10 @@ class EmployeeController extends AbstractController
             $entityManager = $this->doctrine->getManager();
             $entityManager->persist($employee);
             $entityManager->flush();
-            // $this->addFlash('success', 'data inserted!');
+
             return $this->redirectToRoute('employee_list');
         }
-        $this->addFlash('success', '');
+       
         return $this->render('employee/new.html.twig', [
             'employee' => $employee,
             'form' => $form,
@@ -45,11 +45,37 @@ class EmployeeController extends AbstractController
     /**
      * @Route("/list", name="employee_list", methods={"GET"})
      */
-    public function list(): Response
+    public function list(Request $request, EntityManagerInterface $em): Response
     {
-        $employeeRepository = $this->doctrine->getRepository(Employee::class);
-        $employees = $employeeRepository->findBy([],['id'=>'DESC']);
-        return $this->render('employee/list.html.twig', ['employees' => $employees]);
+        $page = $request->query->getInt('page', 1);
+        $limit = 10;
+
+        $qb = $em->getRepository(Employee::class)->createQueryBuilder('e')->orderBy('e.id', 'DESC');
+
+        $salaryFilter = $request->query->get('salaryOperator', null);
+        $salaryInput = $request->query->get('salaryInput', null);
+
+        if ($salaryFilter && $salaryInput !== null) {
+            $qb->andWhere('e.salary' . $salaryFilter . ':salary')
+                ->setParameter('salary', $salaryInput);
+        }
+
+        $query = $qb->getQuery();
+      
+        $paginator = new Paginator($query);
+        $paginator->getQuery()->setFirstResult(($page - 1) * $limit)->setMaxResults($limit);
+        
+        $totalEmployees = count($paginator);
+        $totalPages = ceil($totalEmployees / $limit);
+        $pagination = [
+            'currentPage' => $page,
+            'totalPages' => $totalPages,
+            'employees' => $paginator,
+            'salaryFilter'=>$salaryFilter,
+            'salaryInput'=>$salaryInput
+        ];
+       
+        return $this->render('employee/list.html.twig', $pagination);
     }
 
     /**
@@ -64,7 +90,6 @@ class EmployeeController extends AbstractController
             $employee = $form->getData();
             $em->persist($employee);
             $em->flush();
-            $this->addFlash('success', 'data updated!');
             return $this->redirectToRoute('employee_list', [
                 'id' => $employee->getId(),
             ]);
@@ -90,26 +115,25 @@ class EmployeeController extends AbstractController
         return $this->redirectToRoute('employee_list', [], Response::HTTP_SEE_OTHER);
     }
 
-
     /**
      * @Route("/filter", name="employee_filter_ajax", methods={"GET"})
      */
     public function filterAjax(Request $request, EntityManagerInterface $em): Response
     {
         $salaryFilter = $request->query->get('salaryOperator', null);
-        // dd($salaryFilter);
+        $salaryInput = $request->query->get('salaryInput', null);
+
         $qb = $em->getRepository(Employee::class)->createQueryBuilder('e');
 
-        // dd(get_class_methods($em));
-        if ($salaryFilter) {
-
-            $qb->andWhere('e.salary'. $salaryFilter .':salary')
-                ->setParameter('salary', $request->query->get('salaryInput'));
+        if ($salaryFilter && $salaryInput !== null) {
+            $qb->andWhere('e.salary' . $salaryFilter . ':salary')
+                ->setParameter('salary', $salaryInput);
         }
+
         $employees = $qb->getQuery()->getResult();
         return $this->render('employee/list.html.twig', [
             'employees' => $employees,
-            
+
         ]);
     }
 }
