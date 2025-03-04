@@ -92,8 +92,8 @@
                 <td>{{ employee.salary }}</td>
                 <td colspan="2">{{ employee.roles|join(', ') }}</td>
                 <td>{{ employee.city }}</td>
-                <td>{{ employee.createdAt|date("F j Y  \\a\\t g:ia") }}</td>
-                <td>{{ employee.updatedAt|date('Y-m-d H:i:s') }}</td>
+                <td>{{ employee.createdAt|date("F j Y  \\a\\t g:ia", "Asia/Calcutta") }}</td>
+                <td>{{ employee.updatedAt|date("F j \\a\\t g:ia","Asia/Calcutta")}}</td>
                 <td class="table-actions">
                     <form method="post" action="{{ path('employee_edit', {'id': employee.id}) }}">
                         <a><button class="btn btn-outline-success" href="{{ path('employee_edit', {'id': employee.id}) }}">Edit</button></a>

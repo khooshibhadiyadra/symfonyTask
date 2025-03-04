@@ -76,26 +76,24 @@ input[type=submit]:hover {
  
    <div class="row">
      <div class="col">
- 
         {{ form_row(form.salary, {'attr': {'class': 'form-control'}}) }}
     </div>
 
-           <div class="col">
+    <div class="col">
         {{ form_row(form.roles, {'attr': {'class': 'form-control'}}) }}
     </div>
-</div>
+  </div>
 
 
     <div class="row col-sm-6">
         {{ form_row(form.city, {'attr': {'class': 'col-sm-4'}}) }}
     </div>
- 
-
      <div>
     <button type="submit" class="btn btn-primary" >Update</button>
     </div>
 </div>
 </div>
+
 
 {{ form_end(form) }}
 {% endblock %}

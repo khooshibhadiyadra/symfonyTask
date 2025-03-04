@@ -28,6 +28,7 @@ class EmployeeController extends AbstractController
         $form = $this->createForm(EmployeeType::class, $employee);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+    
             $employee->setCreatedAt(new \DateTime());
             $employee->setUpdatedAt(new \DateTime());
             $entityManager = $this->doctrine->getManager();
@@ -36,12 +37,13 @@ class EmployeeController extends AbstractController
 
             return $this->redirectToRoute('employee_list');
         }
-       
+
         return $this->render('employee/new.html.twig', [
             'employee' => $employee,
             'form' => $form,
         ]);
     }
+
     /**
      * @Route("/list", name="employee_list", methods={"GET"})
      */
@@ -59,23 +61,24 @@ class EmployeeController extends AbstractController
             $qb->andWhere('e.salary' . $salaryFilter . ':salary')
                 ->setParameter('salary', $salaryInput);
         }
-
         $query = $qb->getQuery();
-      
+
         $paginator = new Paginator($query);
-        $paginator->getQuery()->setFirstResult(($page - 1) * $limit)->setMaxResults($limit);
         
+        $paginator->getQuery()->setFirstResult(($page - 1) * $limit)->setMaxResults($limit);
+        // dd($paginator);
         $totalEmployees = count($paginator);
+        // dd($totalEmployees);
         $totalPages = ceil($totalEmployees / $limit);
+        // dd($totalPages);
         $pagination = [
             'currentPage' => $page,
             'totalPages' => $totalPages,
             'employees' => $paginator,
-            'salaryFilter'=>$salaryFilter,
-            'salaryInput'=>$salaryInput
+            'salaryFilter' => $salaryFilter,
+            'salaryInput' => $salaryInput,
         ];
-       
-        return $this->render('employee/list.html.twig', $pagination);
+    return $this->render('employee/list.html.twig', $pagination);
     }
 
     /**
@@ -87,6 +90,7 @@ class EmployeeController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $employee->setUpdatedAt(new \DateTime());
             $employee = $form->getData();
             $em->persist($employee);
             $em->flush();
@@ -94,7 +98,7 @@ class EmployeeController extends AbstractController
                 'id' => $employee->getId(),
             ]);
         }
-        $this->addFlash('success', '');
+        
         return $this->render('employee/edit.html.twig', [
             'editform' => $form->createView(),
             'form' => $form,

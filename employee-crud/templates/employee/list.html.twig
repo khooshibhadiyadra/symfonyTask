@@ -1,45 +1,98 @@
 {% block body %}
-    <div class="container">
-        <h2 class="text-center mt-5 mb-3">Employee List</h2>
-        <div class="card">
-            <div class="card-header">
-                <a class="btn btn-outline-primary" href="{{ path('employee_new') }}"> 
-                    Create New Employee 
-                </a>
-            </div>
-            <div class="card-body">
-<form id="salary-filter-form" method="get" action="{{ path('employee_filter_ajax') }}">
-    <label for="salary">Filter by Salary:</label>
-    <input type="text" name="salaryInput" id="salaryInput" class="salaryInput">
-        <select name="salaryOperator" id="salaryOperator">
-        <option value="">Select Salary</option>
-            <option value="="> == </option>
-            <option value=">="> >= </option>
-            <option value= "<="> <= </option>
-            <option value=">"> > </option>
-            <option value="<"> < </option>
-        </select>
 
-</form>
+<style>
+.page-link{
+            background-color: #28a745;
+            color: white;
+            border: 1px solid #28a745;
+           padding: 8px 12px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            border-radius: 5px;
+            list-style-type: none;
+}
+</style>
+<div class="container">
+    <h2 class="text-center mt-5 mb-3">Employee List</h2>
+    <div class="card">
+        <div class="card-header">
+            <a class="btn btn-outline-primary" href="{{ path('employee_new') }}"> 
+                Create New Employee 
+            </a>
+        </div>
+        <div class="card-body">
 
-<div id="employee-list">
-    {% include 'employee/_employee_list.html.twig' with {'employees': employees} %}
-</div>
+        <form id="salary-filter-form" method="get" action="{{ path('employee_list') }}">
+            <label for="salary">Filter by Salary:</label>
+            <input type="number" min="0" name="salaryInput" id="salaryInput" class="salaryInput" oninput="this.value = 
+            !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null">
+            <select name="salaryOperator" id="salaryOperator">
+                <option value="">Select Salary</option>
+                <option value="="> == </option>
+                <option value=">="> >= </option>
+                <option value="<="> <= </option>
+                <option value=">"> > </option>
+                <option value="<"> < </option>
+            </select>
+            <button type="submit" id="submitButton" class="btn btn-outline-secondary">Search</button>
+            <button type="submit" id="resetButton" class="btn btn-outline-secondary">Reset Filters</button>
+        </form>
 
-<script>
-document.getElementById('salaryOperator').addEventListener('change', function() {
-var salaryOperator = this.value;
-var get= document.getElementById('salaryInput').value;
-var url = '{{ path('employee_filter_ajax') }}' + (salaryOperator ? '?salaryOperator' + salaryOperator : '')+ (salaryInput ?+  get : '');
-    .then(response => response.text())
-    .then(data => {
-    document.getElementById('employee-list').innerHTML = data;
-      })
-      .catch(error => console.error('Error fetching filtered employees:', error));
-    });
-</script>
+        <div id="employee-list">
+            {% include 'employee/_employee_list.html.twig' with {'employees': employees} %}
+        </div>
 
-            </div>
+        <nav aria-label="Page navigation">
+        {% if currentPage > 1 %}
+        {# {dump(href="{{ path('employee_list', {'page': currentPage - 1, 'salaryOperator': salaryFilter, 'salaryInput': salaryInput}) }})}; #}
+        <a class="page-link" href="{{ path('employee_list', {'page': currentPage - 1, 'salaryOperator': salaryFilter, 'salaryInput': salaryInput}) }}" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+        </a>
+        {% endif %}
+{# {{dump(totalPages)}} #}
+       {% for i in 1..totalPages %}
+       {% if i >= 1.0 %}
+       {# dump(href="{{ path('employee_list', {'page': i, 'salaryOperator': salaryFilter, 'salaryInput': salaryInput}) }}); #}
+        <a class="page-link" href="{{ path('employee_list', {'page': i, 'salaryOperator': salaryFilter, 'salaryInput': salaryInput}) }}">{{ i }}</a>
+     {% endif %}
+       {% endfor %}
+
+       {% if currentPage < totalPages %}
+        <a class="page-link" href="{{ path('employee_list', {'page': currentPage + 1, 'salaryOperator': salaryFilter, 'salaryInput': salaryInput}) }}" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+        </a>
+       {% endif %}
+</nav>
         </div>
     </div>
+</div>
+<script>
+    document.getElementById('salaryOperator').addEventListener('change', function() {
+    var salaryOperator = this.value;
+    var salaryInput = document.getElementById('salaryInput').value;
+    var url = '{{ path('employee_list') }}' + 
+              (salaryOperator ? '?salaryOperator=' + salaryOperator : '') + 
+              (salaryInput ? '&salaryInput=' + salaryInput : '');
+    fetch(url)
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('employee_list').innerHTML = data;
+        })
+        .catch(error => console.error('Error fetching filtered employees:', error));
+});
+
+    document.getElementById('resetButton').addEventListener('click', function() {
+    document.getElementById('salaryInput').value = '';
+    document.getElementById('salaryOperator').value = '';
+    var url = '{{ path('employee_list') }}'; 
+    fetch(url)
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('employee-list').innerHTML = data;
+        })
+        .catch(error => console.error('Error fetching filtered employees:', error));
+});
+
+</script> 
 {% endblock %}

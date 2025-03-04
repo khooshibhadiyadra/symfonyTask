@@ -9,7 +9,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -23,7 +23,13 @@ class EmployeeType extends AbstractType
         $builder
             ->add('firstName', TextType::class)
             ->add('lastName', TextType::class)
-            ->add('age', IntegerType::class)
+            ->add('age', IntegerType::class,[
+                'required' => false,
+                'error_bubbling' => true,
+                'attr' => [
+                'min' => 0,
+                 ]
+                ])
 
             ->add('hobby', ChoiceType::class, array(
                 'choices' => array(
@@ -59,8 +65,9 @@ class EmployeeType extends AbstractType
                 'expanded' => true,
             ])
             ->add('city', TextType::class)
-            ->add('salary',TextType::class);
+            ->add('salary',TextType::class); 
     }
+    
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
