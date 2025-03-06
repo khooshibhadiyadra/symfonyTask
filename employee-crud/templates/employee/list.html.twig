@@ -20,6 +20,9 @@
             <a class="btn btn-outline-primary" href="{{ path('employee_new') }}"> 
                 Create New Employee 
             </a>
+            <a class="btn btn-outline-primary" href="{{ path('app_logout') }}"> 
+               Logout
+            </a>
         </div>
         <div class="card-body">
 
@@ -45,17 +48,16 @@
 
         <nav aria-label="Page navigation">
         {% if currentPage > 1 %}
-        {# {dump(href="{{ path('employee_list', {'page': currentPage - 1, 'salaryOperator': salaryFilter, 'salaryInput': salaryInput}) }})}; #}
         <a class="page-link" href="{{ path('employee_list', {'page': currentPage - 1, 'salaryOperator': salaryFilter, 'salaryInput': salaryInput}) }}" aria-label="Previous">
             <span aria-hidden="true">&laquo;</span>
         </a>
         {% endif %}
-{# {{dump(totalPages)}} #}
+     
        {% for i in 1..totalPages %}
        {% if i >= 1.0 %}
-       {# dump(href="{{ path('employee_list', {'page': i, 'salaryOperator': salaryFilter, 'salaryInput': salaryInput}) }}); #}
+       
         <a class="page-link" href="{{ path('employee_list', {'page': i, 'salaryOperator': salaryFilter, 'salaryInput': salaryInput}) }}">{{ i }}</a>
-     {% endif %}
+       {% endif %}
        {% endfor %}
 
        {% if currentPage < totalPages %}

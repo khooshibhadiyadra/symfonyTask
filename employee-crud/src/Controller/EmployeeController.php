@@ -66,11 +66,11 @@ class EmployeeController extends AbstractController
         $paginator = new Paginator($query);
         
         $paginator->getQuery()->setFirstResult(($page - 1) * $limit)->setMaxResults($limit);
-        // dd($paginator);
+        
         $totalEmployees = count($paginator);
-        // dd($totalEmployees);
+        
         $totalPages = ceil($totalEmployees / $limit);
-        // dd($totalPages);
+       
         $pagination = [
             'currentPage' => $page,
             'totalPages' => $totalPages,
