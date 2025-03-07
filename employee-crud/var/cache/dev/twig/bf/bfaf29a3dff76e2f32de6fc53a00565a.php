@@ -131,7 +131,7 @@ input[type=submit]:hover {
   padding: 20px;
 }
 </style>
-    <form method=\"post\" >
+    <form method=\"post\">
         ";
         // line 41
         if ((isset($context["error"]) || array_key_exists("error", $context) ? $context["error"] : (function () { throw new RuntimeError('Variable "error" does not exist.', 41, $this->source); })())) {
@@ -177,17 +177,14 @@ input[type=submit]:hover {
         // line 62
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderCsrfToken("authenticate"), "html", null, true);
         yield "\">
-        ";
-        // line 72
-        yield "        <br>
-    <div >
-  
+        <br>
+    <div>
         <button class=\"btn btn-primary\" type=\"submit\">
             Sign in
         </button>
             <div class=\"mb-3\">
         New user? <a href=\"";
-        // line 79
+        // line 69
         yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_register");
         yield "\">Register</a>
     </div>
@@ -226,7 +223,7 @@ input[type=submit]:hover {
      */
     public function getDebugInfo(): array
     {
-        return array (  191 => 79,  182 => 72,  178 => 62,  169 => 56,  162 => 51,  153 => 47,  150 => 46,  148 => 45,  145 => 44,  139 => 42,  137 => 41,  100 => 6,  87 => 5,  64 => 3,  41 => 1,);
+        return array (  188 => 69,  178 => 62,  169 => 56,  162 => 51,  153 => 47,  150 => 46,  148 => 45,  145 => 44,  139 => 42,  137 => 41,  100 => 6,  87 => 5,  64 => 3,  41 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -270,7 +267,7 @@ input[type=submit]:hover {
   padding: 20px;
 }
 </style>
-    <form method=\"post\" >
+    <form method=\"post\">
         {% if error %}
             <div class=\"alert alert-danger\">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
         {% endif %}
@@ -293,18 +290,8 @@ input[type=submit]:hover {
         <input class=\"form-control\" type=\"password\" name=\"_password\" id=\"password\" class=\"form-control\" autocomplete=\"current-password\" required>
    </div>
         <input type=\"hidden\" name=\"_csrf_token\" data-controller=\"csrf-protection\" value=\"{{ csrf_token('authenticate') }}\">
-        {#
-            Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-            See https://symfony.com/doc/current/security/remember_me.html
-
-            <div class=\"checkbox mb-3\">
-                <input type=\"checkbox\" name=\"_remember_me\" id=\"_remember_me\">
-                <label for=\"_remember_me\">Remember me</label>
-            </div>
-        #}
         <br>
-    <div >
-  
+    <div>
         <button class=\"btn btn-primary\" type=\"submit\">
             Sign in
         </button>
