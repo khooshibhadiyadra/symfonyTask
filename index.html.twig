@@ -1,0 +1,110 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Project index{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2 class="text-center mt-5 mb-3">Symfony Project Manager</h2>
+        <div class="card">
+            <div class="card-header">
+                <a class="btn btn-outline-primary" href="{{ path('app_project_new') }}"> 
+                    Create New Project 
+                </a>    
+            </div>
+            <div class="card-header">
+                <a class="btn btn-outline-info float-right" href="{{ path('app_project_index') }}"> 
+                    Reset Filter
+                </a>
+            </div>
+         
+            <form method="GET" action="{{ path('app_project_index') }}">
+                <div>
+                    <label for="role">Role</label>
+                    <select name="role" id="role">
+                        <option value="">All Roles</option>
+                        <option value="ROLE_ADMIN" {% if app.request.query.get('role') == "ROLE_ADMIN" %}selected{% endif %}>ROLE_ADMIN</option>
+                        <option value="ROLE_MANAGER" {% if app.request.query.get('role') == "ROLE_MANAGER" %}selected{% endif %}>ROLE_MANAGER</option>
+                        <option value="ROLE_USER" {% if app.request.query.get('role') == "ROLE_USER" %}selected{% endif %}>ROLE_USER</option>
+                    </select>
+                </div>
+                 <div>
+                    <label for="status">Status</label>
+                    <select name="status" id="status">
+                        <option value="">All Statuses</option>
+                        <option value="1" {% if app.request.query.get('1') == 'active' %}selected{% endif %}>Active</option>
+                        <option value="0" {% if app.request.query.get('0') == 'inactive' %}selected{% endif %}>Inactive</option>
+                    </select>
+                </div>
+
+
+                <div>
+                    <label for="start_date">Start Date</label>
+                    <input type="date" name="start_date" id="start_date" value="{{ app.request.query.get('start_date') }}">
+                </div>
+
+                <div>
+                    <label for="end_date">End Date</label>
+                    <input type="date" name="end_date" id="end_date" value="{{ app.request.query.get('end_date') }}">
+                </div>
+
+                <button type="submit" class="btn btn-outline-primary mt-2">Apply Filters</button>
+            </form>
+
+            
+            <div class="card-body">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Lastname</th>
+                            <th>Date Created</th>
+                            <th>Date Updated</th>
+                            <th>Roles</th>
+                            <th>Hobby</th>
+                            <th>Gender</th>
+                            <th>Age</th>
+                            <th>Email</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for project in projects %}
+                            <tr>
+                                <td>{{ project.id }}</td>
+                                <td>{{ project.name }}</td>
+                                <td>{{ project.lastname }}</td>
+                                <td>{{ project.createdAt ? project.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                                <td>{{ project.updatedAt ? project.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                                <td>{{ project.role|join(', ') }}</td>
+                                <td>{{ project.hobby|join(', ') }}</td>
+                                <td>{{ project.gender|join(', ') }}</td>
+                                <td>{{ project.age }}</td>
+                                <td>{{ project.email }}</td>
+                                <td>
+                                    {% if project.status is same as true %}
+                                        Active
+                                    {% elseif project.status is same as false %}
+                                        Inactive
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <a class="btn btn-outline-info" href="{{ path('app_project_show', {'id': project.id}) }}">Show</a>
+                                    <a class="btn btn-outline-success" href="{{ path('app_project_edit', {'id': project.id}) }}">Edit</a>
+                                    <form method="POST" action="{{ path('app_project_delete', {'id': project.id}) }}" onsubmit="return confirm('Are you sure?');">
+                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ project.id) }}">
+                                        <button type="submit" class="btn btn-outline-danger">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr><td  colspan="12">No projects found.</td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
